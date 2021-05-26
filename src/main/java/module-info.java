@@ -1,7 +1,7 @@
-module local.calendarfx {
-    requires javafx.controls;
-    requires javafx.fxml;
+module local.ToDoFX {
+    requires transitive javafx.controls;
+    requires transitive javafx.fxml;
 
-    opens local.calendarfx to javafx.fxml;
-    exports local.calendarfx;
+    opens local.todofx to javafx.fxml;
+    exports local.todofx;
 }

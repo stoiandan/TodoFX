@@ -3,15 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package local.calendarfx;
+package local.todofx;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  *
  * @author dan.stoian
  */
-class LocalEvent {
+public class LocalEvent implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     
     private LocalDate date;
     

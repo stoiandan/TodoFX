@@ -1,4 +1,4 @@
-package local.calendarfx;
+package local.todofx;
 
 import java.time.LocalDate;
 import javafx.event.ActionEvent;
@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import local.util.EventSerializer;
 
 
 public class Controller {
@@ -39,5 +40,25 @@ public class Controller {
         
         // set text empty
         eventDescriptionTextField.setText("");
+    }
+
+
+    public Object[] getEvents() {
+        return eventListView.getItems().toArray();
+    }
+
+
+    public void initialize() {
+        App.AppController = this;
+
+        try {
+            var events = EventSerializer.deserialize();
+
+            for (Object event : events) {
+                eventListView.getItems().add((LocalEvent) event);
+            }
+        }catch(Exception e){
+            
+        }
     }
 }

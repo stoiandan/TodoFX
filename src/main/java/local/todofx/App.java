@@ -1,10 +1,11 @@
-package local.calendarfx;
+package local.todofx;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import local.util.EventSerializer;
 
 import java.io.IOException;
 
@@ -12,6 +13,8 @@ import java.io.IOException;
  * JavaFX App
  */
 public class App extends Application {
+
+    public static Controller AppController;
 
     private static Scene scene;
 
@@ -21,6 +24,14 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        EventSerializer.serailize(AppController.getEvents());
+    }
+
 
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
