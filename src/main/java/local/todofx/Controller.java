@@ -1,16 +1,22 @@
 package local.todofx;
 
+import java.net.URL;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import local.util.EventSerializer;
+import javafx.scene.control.Alert.AlertType;
+import local.todofx.util.EventSerializer;
 
 
-public class Controller {
+public class Controller implements Initializable {
     
     @FXML
     private Button addEventButton;
@@ -42,23 +48,21 @@ public class Controller {
         eventDescriptionTextField.setText("");
     }
 
-
-    public Object[] getEvents() {
+    public Object[] getEvents()  {
         return eventListView.getItems().toArray();
     }
 
-
-    public void initialize() {
-        App.AppController = this;
-
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
         try {
             var events = EventSerializer.deserialize();
-
-            for (Object event : events) {
-                eventListView.getItems().add((LocalEvent) event);
-            }
-        }catch(Exception e){
-            
+            eventListView.getItems().addAll(events);
+        }catch(Exception e)  {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("TodoFX");
+            alert.setHeaderText("Events could not be loaded from file system");
         }
+
     }
+
 }

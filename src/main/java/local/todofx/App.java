@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import local.util.EventSerializer;
+import local.todofx.util.EventSerializer;
 
 import java.io.IOException;
 
@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class App extends Application {
 
-    public static Controller AppController;
+    private static Controller AppController;
 
     private static Scene scene;
 
@@ -25,13 +25,11 @@ public class App extends Application {
         stage.show();
     }
 
-
     @Override
     public void stop() throws Exception {
+        EventSerializer.serialize(AppController.getEvents());
         super.stop();
-        EventSerializer.serailize(AppController.getEvents());
     }
-
 
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
@@ -39,7 +37,9 @@ public class App extends Application {
 
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
+        Parent parent = fxmlLoader.load();
+        AppController = fxmlLoader.getController();
+        return parent;
     }
 
     public static void main(String[] args) {

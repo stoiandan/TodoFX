@@ -8,14 +8,15 @@ package local.todofx;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+
 /**
  *
  * @author dan.stoian
  */
-public class LocalEvent implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class LocalEvent implements Serializable  {
     
+    private static final long serialVersionUID = 1L;
+
     private LocalDate date;
     
     private String description;
